@@ -1,0 +1,23 @@
+[cloudera@quickstart ~]$ pwd
+/home/cloudera
+[cloudera@quickstart ~]$ ls -ps
+total 332
+ 4 AMAZONUKDATA/     56 enterprise-deployment.json   8 parcels
+ 4 assignment/       52 express-deployment.json      4 Pictures/
+ 4 bdg02/             4 jobs.csv/                    4 Public/
+ 8 cloudera-manager   4 jobs_output/                 4 reducer.py
+12 cm_api.py          8 kerberos                     8 "spark-shell"
+ 4 derby.log          4 lib/                        12 spark-shell
+ 4 Desktop/           4 mapper.py                   12 spark-shell~
+ 4 Documents/         4 mapreduce_result/           32 spark-shell.pdf*
+ 4 Downloads/        20 map reducing                 4 Templates/
+ 4 eclipse/          20 map reducing~                4 Videos/
+ 4 emails.csv/        4 Music/                       4 workspace/
+[cloudera@quickstart ~]$ sudo -u hdfs hdfs dfsadmin -safemode leave
+Safe mode is OFF
+[cloudera@quickstart ~]$ hdfs dfs -put /home/cloudera/AMAZONUKDATA/amz_uk_processed_data.csv /user/cloudera/amazon
+[cloudera@quickstart ~]$ hdfs dfs -mkdir -p /user/cloudera/amazon
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/cloudera/amazon
+Found 1 items
+-rw-r--r--   1 cloudera cloudera  651062977 2026-02-11 09:39 /user/cloudera/amazon/amz_uk_processed_data.csv
+[cloudera@quickstart ~]$ 
