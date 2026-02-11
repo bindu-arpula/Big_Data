@@ -1,0 +1,85 @@
+[cloudera@quickstart ~]$ pwd
+/home/cloudera
+[cloudera@quickstart ~]$ ls -ps
+total 340
+ 4 AMAZONUKDATA/               52 express-deployment.json   4 Pictures/
+ 4 assignment/                  4 jobs.csv/                 4 Public/
+ 4 bdg02/                       4 jobs_output/              4 reducer.py
+ 8 cloudera-manager             8 kerberos                  4 reducer.py~
+12 cm_api.py                    4 lib/                      8 "spark-shell"
+ 4 derby.log                    4 mapper.py                12 spark-shell
+ 4 Desktop/                     4 mapper.py~               12 spark-shell~
+ 4 Documents/                   4 mapreduce_result/        32 spark-shell.pdf*
+ 4 Downloads/                  20 map reducing              4 Templates/
+ 4 eclipse/                    20 map reducing~             4 Videos/
+ 4 emails.csv/                  4 Music/                    4 workspace/
+56 enterprise-deployment.json   8 parcels
+[cloudera@quickstart ~]$ sudo -u hdfs hdfs dfsadmin -safemode leave
+Safe mode is OFF
+[cloudera@quickstart ~]$ hdfs dfs -mkdir /user/cloudera/amazon
+mkdir: `/user/cloudera/amazon': File exists
+[cloudera@quickstart ~]$ hdfs dfs -put /home/cloudera/AMAZONUKDATA/amz_uk_processed_data.csv /user/cloudera/amazon
+put: `/user/cloudera/amazon/amz_uk_processed_data.csv': File exists
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/cloudera/amazon
+Found 1 items
+-rw-r--r--   1 cloudera cloudera  651062977 2026-02-11 09:39 /user/cloudera/amazon/amz_uk_processed_data.csv
+[cloudera@quickstart ~]$ hive
+
+Logging initialized using configuration in jar:file:/usr/lib/hive/lib/hive-common-1.1.0-cdh5.13.0.jar!/hive-log4j.properties
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> CREATE DATABASE amazon_db;
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. Database amazon_db already exists
+hive> USE amazon_db;
+OK
+Time taken: 0.037 seconds
+hive> CREATE EXTERNAL TABLE amazon_products (
+    > asin STRING,
+    > title STRING,
+    > imgUrl STRING,
+    > productURL STRING,
+    > stars STRING,
+    > reviews STRING,
+    > price STRING,
+    > isBestSeller STRING,
+    > boughtInLastMonth STRING,
+    > categoryName STRING
+    > )
+    > ROW FORMAT DELIMITED
+    > FIELDS TERMINATED BY ','
+    > STORED AS TEXTFILE
+    > LOCATION '/user/cloudera/amazon'
+    > TBLPROPERTIES ("skip.header.line.count"="1");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table amazon_products already exists)
+hive> SELECT COUNT(*) FROM amazon_products;
+Query ID = cloudera_20260211123030_d225457f-da70-4db1-acae-67d911b30484
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1770840865146_0001, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1770840865146_0001/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1770840865146_0001
+Hadoop job information for Stage-1: number of mappers: 3; number of reducers: 1
+2026-02-11 12:30:55,817 Stage-1 map = 0%,  reduce = 0%
+2026-02-11 12:31:17,318 Stage-1 map = 67%,  reduce = 0%, Cumulative CPU 5.1 sec
+2026-02-11 12:31:24,900 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 6.31 sec
+2026-02-11 12:31:33,526 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.19 sec
+MapReduce Total cumulative CPU time: 7 seconds 190 msec
+Ended Job = job_1770840865146_0001
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 3  Reduce: 1   Cumulative CPU: 7.19 sec   HDFS Read: 651342787 HDFS Write: 8 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 190 msec
+OK
+2222742
+Time taken: 52.955 seconds, Fetched: 1 row(s)
+hive> SELECT categoryName, COUNT(*)
+    > FROM amazon_products
+    > GROUP BY categoryName
+    > ORDER BY COUNT(*) DESC
+    > LIMIT 10;
+FAILED: SemanticException [Error 10128]: Line 4:9 Not yet supported place for UDAF 'COUNT'
+hive> 
