@@ -1,0 +1,133 @@
+[cloudera@quickstart ~]$ spark-shell
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel).
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /___/ .__/\_,_/_/ /_/\_\   version 1.6.0
+      /_/
+
+Using Scala version 2.10.5 (Java HotSpot(TM) 64-Bit Server VM, Java 1.7.0_67)
+Type in expressions to have them evaluated.
+Type :help for more information.
+26/02/11 11:12:37 WARN hdfs.DFSClient: Caught exception 
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1281)
+	at java.lang.Thread.join(Thread.java:1355)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.closeResponder(DFSOutputStream.java:967)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.endBlock(DFSOutputStream.java:705)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:894)
+Spark context available as sc (master = yarn-client, app id = application_1770829682257_0011).
+26/02/11 11:13:02 WARN metastore.ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.1.0-cdh5.13.0
+26/02/11 11:13:02 WARN metastore.ObjectStore: Failed to get database default, returning NoSuchObjectException
+SQL context available as sqlContext.
+
+scala> import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.hive.HiveContext
+
+scala> val sqlContext = new HiveContext(sc)
+sqlContext: org.apache.spark.sql.hive.HiveContext = org.apache.spark.sql.hive.HiveContext@5bc46d18
+
+scala> sqlContext.sql("USE amazon_db")
+res0: org.apache.spark.sql.DataFrame = [result: string]
+
+scala> sqlContext.sql("SELECT COUNT(*) FROM amazon_products").show()
++-------+                                                                       
+|    _c0|
++-------+
+|2222743|
++-------+
+
+
+scala> sqlContext.sql("SELECT categoryName, COUNT(*) FROM amazon_products GROUP BY categoryName").show()
++--------------------+---+                                                      
+|        categoryName|_c1|
++--------------------+---+
+|"https://www.amaz...|  1|
+|"https://www.amaz...|  1|
+|"https://m.media-...|  1|
+|"https://www.amaz...|  1|
+|"https://www.amaz...|  1|
+|               "422"| 15|
+|                "60"|122|
+|              "8.95"|141|
+|               Women| 14|
+|              "11.0"| 88|
+|"https://www.amaz...|  1|
+|"https://www.amaz...|  1|
+|"https://www.amaz...|  1|
+|              "1036"|  3|
+|              "5.89"| 90|
+|               "260"| 34|
+|             "32.49"| 14|
+|             "387.0"|  3|
+| etc. (Grey-4 Pie...|  1|
+|             "27.36"| 15|
++--------------------+---+
+only showing top 20 rows
+
+
+scala> sqlContext.sql("SELECT title, stars FROM amazon_products ORDER BY stars DESC LIMIT 10").show()
++--------------------+-------------+                                            
+|               title|        stars|
++--------------------+-------------+
+|"NIKE Children's ...|     Infinity|
+|"IZAS Jucar Kids ...| 8.4340769E12|
+|"reima Oja Unisex...| 5.2223468E12|
+|"Hummel First Per...|1.03729706E12|
+|"AquaHouse AH-WP1...|4.61950255E11|
+|"Ortovox 120 Tec ...|     6.7005E9|
+|"Ortovox 120 Tec ...|     6.7005E9|
+|"Ortovox Westalpe...|  6.0042998E9|
+|"GLACIER FRESH DL...|  5.5132928E9|
+|"Wera Bit-Box 20 ...|  5.0577603E9|
++--------------------+-------------+
+
+
+scala> sqlContext.sql("SELECT categoryName, AVG(price) FROM amazon_products GROUP BY categoryName").show()
++--------------------+----+                                                     
+|        categoryName| _c1|
++--------------------+----+
+|"https://www.amaz...|null|
+|"https://www.amaz...|null|
+|"https://m.media-...|null|
+|"https://www.amaz...|null|
+|"https://www.amaz...|null|
+|               "422"|null|
+|                "60"|null|
+|              "8.95"|null|
+|               Women|null|
+|              "11.0"|null|
+|"https://www.amaz...|null|
+|"https://www.amaz...|null|
+|"https://www.amaz...|null|
+|              "1036"|null|
+|              "5.89"|null|
+|               "260"|null|
+|             "32.49"|null|
+|             "387.0"|null|
+| etc. (Grey-4 Pie...|null|
+|             "27.36"|null|
++--------------------+----+
+only showing top 20 rows
+
+
+scala> sqlContext.sql("SELECT title, categoryName FROM amazon_products WHERE isBestSeller = true").show()
++--------------------+--------------------+                                     
+|               title|        categoryName|
++--------------------+--------------------+
+|"JUSTQUNSEEN Baby...|3 Year Old Girl G...|
+|"Fit For The Job ...| 2 & 2.5 inch Pai...|
+|"AURUZA Baby Bath...|                   3|
+|"3PCS Baby Bath Toys|                   3|
+|"Leapfrog Chat an...|                   3|
+|"YFood Powder Cla...|"https://m.media-...|
+|"Hurricane 4pcs W...|basic sturdy chis...|
+|"Leapfrog Chat an...|                   3|
+|"Ecogbd Elastic R...|        Light pink)"|
++--------------------+--------------------+
+
+
+scala> 
