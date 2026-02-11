@@ -1,0 +1,54 @@
+[cloudera@quickstart ~]$ hive
+
+Logging initialized using configuration in jar:file:/usr/lib/hive/lib/hive-common-1.1.0-cdh5.13.0.jar!/hive-log4j.properties
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> CREATE DATABASE amazon_db;
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. Database amazon_db already exists
+hive> USE amazon_db;
+OK
+Time taken: 0.022 seconds
+hive> CREATE EXTERNAL TABLE amazon_products (
+    > asin STRING,
+    > title STRING,
+    > imgUrl STRING,
+    > productURL STRING,
+    > stars FLOAT,
+    > reviews INT,
+    > price FLOAT,
+    > isBestSeller STRING,
+    > boughtInLastMonth INT,
+    > categoryName STRING
+    > )
+    > ROW FORMAT DELIMITED
+    > FIELDS TERMINATED BY ','
+    > STORED AS TEXTFILE
+    > LOCATION '/user/cloudera/amazon'
+    > TBLPROPERTIES ("skip.header.line.count"="1");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table amazon_products already exists)
+hive> SELECT COUNT(*) FROM amazon_products;
+Query ID = cloudera_20260211095151_965d23c0-c019-4124-894b-4661c68b060a
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1770829682257_0003, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1770829682257_0003/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1770829682257_0003
+Hadoop job information for Stage-1: number of mappers: 3; number of reducers: 1
+2026-02-11 09:51:44,363 Stage-1 map = 0%,  reduce = 0%
+2026-02-11 09:52:00,296 Stage-1 map = 67%,  reduce = 0%, Cumulative CPU 3.25 sec
+2026-02-11 09:52:08,052 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.37 sec
+2026-02-11 09:52:16,763 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 5.31 sec
+MapReduce Total cumulative CPU time: 5 seconds 310 msec
+Ended Job = job_1770829682257_0003
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 3  Reduce: 1   Cumulative CPU: 5.31 sec   HDFS Read: 651342787 HDFS Write: 8 SUCCESS
+Total MapReduce CPU Time Spent: 5 seconds 310 msec
+OK
+2222742
+Time taken: 45.47 seconds, Fetched: 1 row(s)
+hive> 
