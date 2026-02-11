@@ -1,0 +1,473 @@
+"B09B8T5VGV","Echo Dot with clock (5th generation, 2022 release) | Bigger vibrant sound Wi-Fi and Bluetooth smart speaker and Alexa | Cloud Blue","https://m.media-amazon.com/images/I/71yf6yTNWSL._AC_UL320_.jpg","https://www.amazon.co.uk/dp/B09B8T5VGV","4.7","7205","31.99","False","0","Hi-Fi Speakers"
+cat: Unable to write to output stream.
+[cloudera@quickstart ~]$ head -n 50 AMAZONUKDATA/amz_uk_processed_data.csv | python mapper.py
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+[cloudera@quickstart ~]$ head -n 50 AMAZONUKDATA/amz_uk_processed_data.csv | python mapper.py | sort | python reducer.py
+Hi-Fi Speakers	49
+[cloudera@quickstart ~]$ python --version
+Python 2.6.6
+[cloudera@quickstart ~]$ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar \
+> -input /user/cloudera/amazon/amz_uk_processed_data.csv \
+> -output /user/cloudera/amazon_output \
+> -mapper "python /home/cloudera/mapper.py" \
+> -reducer "python /home/cloudera/reducer.py"
+packageJobJar: [] [/usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-cdh5.13.0.jar] /tmp/streamjob8529999061814774246.jar tmpDir=null
+26/02/11 12:50:07 INFO client.RMProxy: Connecting to ResourceManager at quickstart.cloudera/10.0.2.15:8032
+26/02/11 12:50:07 INFO client.RMProxy: Connecting to ResourceManager at quickstart.cloudera/10.0.2.15:8032
+26/02/11 12:50:07 WARN security.UserGroupInformation: PriviledgedActionException as:cloudera (auth:SIMPLE) cause:org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory hdfs://quickstart.cloudera:8020/user/cloudera/amazon_output already exists
+26/02/11 12:50:07 WARN security.UserGroupInformation: PriviledgedActionException as:cloudera (auth:SIMPLE) cause:org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory hdfs://quickstart.cloudera:8020/user/cloudera/amazon_output already exists
+26/02/11 12:50:07 ERROR streaming.StreamJob: Error Launching job : Output directory hdfs://quickstart.cloudera:8020/user/cloudera/amazon_output already exists
+Streaming Command Failed!
+[cloudera@quickstart ~]$ hdfs dfs -rm -r /user/cloudera/amazon_output
+26/02/11 12:50:20 INFO fs.TrashPolicyDefault: Moved: 'hdfs://quickstart.cloudera:8020/user/cloudera/amazon_output' to trash at: hdfs://quickstart.cloudera:8020/user/cloudera/.Trash/Current/user/cloudera/amazon_output1770843020961
+[cloudera@quickstart ~]$ hdfs dfs -mkdir /user/cloudera/amazon_test
+[cloudera@quickstart ~]$ hdfs dfs -put AMAZONUKDATA/amz_uk_processed_data.csv /user/cloudera/amazon_test
+[cloudera@quickstart ~]$ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar \
+> -input /user/cloudera/amazon_test/amz_uk_processed_data.csv \
+> -output /user/cloudera/amazon_output \
+> -mapper "python /home/cloudera/mapper.py" \
+> -reducer "python /home/cloudera/reducer.py"
+packageJobJar: [] [/usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-cdh5.13.0.jar] /tmp/streamjob6494176151570943411.jar tmpDir=null
+26/02/11 12:50:57 INFO client.RMProxy: Connecting to ResourceManager at quickstart.cloudera/10.0.2.15:8032
+26/02/11 12:50:57 INFO client.RMProxy: Connecting to ResourceManager at quickstart.cloudera/10.0.2.15:8032
+26/02/11 12:50:58 INFO mapred.FileInputFormat: Total input paths to process : 1
+26/02/11 12:50:58 WARN hdfs.DFSClient: Caught exception 
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1281)
+	at java.lang.Thread.join(Thread.java:1355)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.closeResponder(DFSOutputStream.java:967)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.endBlock(DFSOutputStream.java:705)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:894)
+26/02/11 12:50:58 WARN hdfs.DFSClient: Caught exception 
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1281)
+	at java.lang.Thread.join(Thread.java:1355)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.closeResponder(DFSOutputStream.java:967)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.endBlock(DFSOutputStream.java:705)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:894)
+26/02/11 12:50:58 INFO mapreduce.JobSubmitter: number of splits:5
+26/02/11 12:50:58 WARN hdfs.DFSClient: Caught exception 
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1281)
+	at java.lang.Thread.join(Thread.java:1355)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.closeResponder(DFSOutputStream.java:967)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.endBlock(DFSOutputStream.java:705)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:894)
+26/02/11 12:50:58 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1770840865146_0004
+26/02/11 12:50:59 INFO impl.YarnClientImpl: Submitted application application_1770840865146_0004
+26/02/11 12:50:59 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application_1770840865146_0004/
+26/02/11 12:50:59 INFO mapreduce.Job: Running job: job_1770840865146_0004
+26/02/11 12:51:10 INFO mapreduce.Job: Job job_1770840865146_0004 running in uber mode : false
+26/02/11 12:51:10 INFO mapreduce.Job:  map 0% reduce 0%
+26/02/11 12:51:34 INFO mapreduce.Job:  map 40% reduce 0%
+26/02/11 12:51:55 INFO mapreduce.Job:  map 80% reduce 0%
+26/02/11 12:52:11 INFO mapreduce.Job:  map 100% reduce 0%
+26/02/11 12:52:18 INFO mapreduce.Job:  map 100% reduce 100%
+26/02/11 12:52:18 INFO mapreduce.Job: Job job_1770840865146_0004 completed successfully
+26/02/11 12:52:18 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=4983823
+		FILE: Number of bytes written=8373193
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=651325796
+		HDFS: Number of bytes written=7392
+		HDFS: Number of read operations=18
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=5
+		Launched reduce tasks=1
+		Data-local map tasks=5
+		Total time spent by all maps in occupied slots (ms)=49652736
+		Total time spent by all reduces in occupied slots (ms)=9533440
+		Total time spent by all map tasks (ms)=96978
+		Total time spent by all reduce tasks (ms)=18620
+		Total vcore-milliseconds taken by all map tasks=96978
+		Total vcore-milliseconds taken by all reduce tasks=18620
+		Total megabyte-milliseconds taken by all map tasks=49652736
+		Total megabyte-milliseconds taken by all reduce tasks=9533440
+	Map-Reduce Framework
+		Map input records=2222743
+		Map output records=2222738
+		Map output bytes=47533352
+		Map output materialized bytes=2491801
+		Input split bytes=675
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=296
+		Reduce shuffle bytes=2491801
+		Reduce input records=2222738
+		Reduce output records=296
+		Spilled Records=6668214
+		Shuffled Maps =5
+		Failed Shuffles=0
+		Merged Map outputs=5
+		GC time elapsed (ms)=1070
+		CPU time spent (ms)=12120
+		Physical memory (bytes) snapshot=841269248
+		Virtual memory (bytes) snapshot=4217069568
+		Total committed heap usage (bytes)=304349184
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=651325121
+	File Output Format Counters 
+		Bytes Written=7392
+26/02/11 12:52:18 INFO streaming.StreamJob: Output directory: /user/cloudera/amazon_output
+[cloudera@quickstart ~]$ hdfs dfs -cat /user/cloudera/amazon_output/part-00000
+3D Printers	248
+3D Printing & Scanning	4022
+Abrasive & Finishing Products	250
+Action Cameras	1014
+Adapters	251
+Agricultural Equipment & Supplies	8036
+Alexa Built-In Devices	69
+Art & Craft Supplies	200
+Arts & Crafts	5756
+Baby	10833
+Baby & Toddler Toys	9058
+Bakeware	236
+Ballet & Dancing Footwear	2982
+Barebone PCs	9477
+Basketball Footwear	6697
+Bass Guitars & Gear	519
+Bath & Body	14880
+Bathroom Furniture	2627
+Bathroom Lighting	254
+Bathroom Linen	404
+Beauty	5872
+Bedding & Linen	3115
+Bedding Accessories	203
+Bedding Collections	6298
+Bedroom Furniture	4759
+Beer, Wine & Spirits	9414
+Billiard, Snooker & Pool	249
+Binoculars, Telescopes & Optics	9031
+Bird & Wildlife Care	8984
+Birthday Gifts	7413
+Blank Media Cases & Wallets	243
+Boating Footwear	139
+Bowling	242
+Boxes & Organisers	847
+Boxing Shoes	4069
+Boys	11784
+Building & Construction Toys	9125
+Building Supplies	5681
+CD, Disc & Tape Players	8798
+CPUs	249
+Cables & Accessories	9029
+Calendars & Personal Organisers	250
+Camcorders	470
+Camera & Photo Accessories	7664
+Cameras	12
+Candles & Holders	249
+Car & Motorbike	9309
+Car & Vehicle Electronics	6841
+Children's Bedding	258
+Climbing Footwear	2177
+Clocks	236
+Coffee & Espresso Machines	514
+Coffee, Tea & Espresso	6570
+Computer & Server Racks	242
+Computer Audio & Video Accessories	9214
+Computer Cases	222
+Computer Memory	248
+Computer Memory Card Accessories	232
+Computer Printers	8085
+Computer Screws	6191
+Computers, Components & Accessories	236
+Construction Machinery	8906
+Cookware	1440
+Cricket Shoes	287
+Curtain & Blind Accessories	706
+Cushions & Accessories	4223
+Customers' Most Loved	6830
+Cutting Tools	255
+Cycling Shoes	9412
+DJ & VJ Equipment	2503
+Darts & Dartboards	249
+Data Storage	8086
+Decking & Fencing	249
+Decorative Artificial Flora	245
+Decorative Home Accessories	258
+Desktop PCs	7343
+Digital Cameras	1463
+Digital Frames	772
+Dining Room Furniture	1651
+Dolls & Accessories	9457
+Doormats	248
+Downhill Ski Boots	1279
+Downhill Skis	252
+Drums & Percussion	250
+Electrical	6244
+Electrical Power Accessories	8862
+Electronic Toys	8764
+Equestrian Sports Boots	399
+External Optical Drives	5826
+External Sound Cards	5649
+External TV Tuners & Video Capture Cards	2726
+Film Cameras	1000
+Fireplaces, Stoves & Accessories	9334
+Flashes	9367
+Fragrances	18563
+Furniture & Lighting	9165
+GPS, Finders & Accessories	8798
+Games & Game Accessories	9159
+Garden Décor	8970
+Garden Furniture & Accessories	9417
+Garden Storage & Housing	8074
+Garden Tools & Watering Equipment	7469
+Gardening	6486
+General Music-Making Accessories	257
+Gifts for Her	243
+Gifts for Him	160
+Girls	10027
+Golf Shoes	414
+Graphics Cards	249
+Grocery	6277
+Guitars & Gear	9382
+Hair Care	13584
+Hallway Furniture	3919
+Handmade	8126
+Handmade Artwork	15297
+Handmade Baby Products	4630
+Handmade Clothing, Shoes & Accessories	16707
+Handmade Gifts	15790
+Handmade Home & Kitchen Products	6882
+Handmade Home Décor	9503
+Handmade Jewellery	12420
+Handmade Kitchen & Dining	14261
+Hard Drive Accessories	232
+Hardware	8568
+Headphones & Earphones	8878
+Headphones, Earphones & Accessories	4506
+Health & Personal Care	8235
+Heating, Cooling & Air Quality	4469
+Hi-Fi & Home Audio Accessories	4972
+Hi-Fi Receivers & Separates	9138
+Hi-Fi Speakers	8679
+Hiking Hand & Foot Warmers	248
+Hobbies	8963
+Hockey Shoes	241
+Home Audio Record Players	6373
+Home Bar Furniture	688
+Home Brewing & Wine Making	245
+Home Cinema, TV & Video	4020
+Home Entertainment	155
+Home Entertainment Furniture	2091
+Home Fragrance	261
+Home Office Furniture	2027
+Household Batteries, Chargers & Accessories	9112
+Hydraulics, Pneumatics & Plumbing	241
+I/O Port Cards	257
+Indoor Lighting	7177
+Industrial Electrical	219
+Inflatable Beds, Pillows & Accessories	243
+Internal Optical Drives	231
+Internal TV Tuner & Video Capture Cards	253
+Ironing & Steamers	2464
+Jigsaws & Puzzles	9376
+KVM Switches	6923
+Karaoke Equipment	2480
+Keyboards, Mice & Input Devices	9252
+Kids' Art & Craft Supplies	9481
+Kids' Dress Up & Pretend Play	8952
+Kids' Play Figures	9110
+Kids' Play Vehicles	9419
+Kitchen & Bath Fixtures	7902
+Kitchen Linen	242
+Kitchen Storage & Organisation	1233
+Kitchen Tools & Gadgets	511
+Lab & Scientific Products	427
+Laptop Accessories	233
+Laptops	7247
+Large Appliances	7463
+Learning & Education Toys	5148
+Lenses	3135
+Light Bulbs	9070
+Lighting	50
+Lights and switches	170
+Living Room Furniture	5858
+Luggage and travel gear	14612
+Luxury Food & Drink	676
+Made in Italy Handmade	2152
+Make-up	18453
+Manicure & Pedicure Products	17212
+Material Handling Products	160
+Mattress Pads & Toppers	768
+Media Streaming Devices	8889
+Men	16384
+Men's Sports & Outdoor Shoes	2866
+Microphones	9392
+Mirrors	168
+Mobile Phone Accessories	254
+Mobile Phones & Communication	4205
+Mobile Phones & Smartphones	7439
+Monitor Accessories	4267
+Monitors	8392
+Motherboards	259
+Motorbike Accessories	431
+Motorbike Batteries	5248
+Motorbike Boots & Luggage	250
+Motorbike Brakes	250
+Motorbike Chassis	107
+Motorbike Clothing	484
+Motorbike Drive & Gears	250
+Motorbike Electrical & Batteries	8631
+Motorbike Engines & Engine Parts	228
+Motorbike Exhaust & Exhaust Systems	258
+Motorbike Handlebars, Controls & Grips	8088
+Motorbike Instruments	4162
+Motorbike Lighting	5201
+Motorbike Seat Covers	249
+Mowers & Outdoor Power Tools	1705
+Network Cards	5677
+Networking Devices	9088
+Office Electronics	3583
+Office Paper Products	8904
+Office Supplies	7382
+Outdoor Cooking	8606
+Outdoor Heaters & Fire Pits	255
+Outdoor Lighting	8895
+Outdoor Rope Lights	3911
+PA & Stage	276
+PC & Video Games	5216
+PC Gaming Accessories	8740
+Packaging & Shipping Supplies	254
+Painting Supplies, Tools & Wall Treatments	8522
+Pens, Pencils & Writing Supplies	9100
+Pet Supplies	9430
+Photo Frames	254
+Photo Printers	73
+Piano & Keyboard	9385
+Plants, Seeds & Bulbs	9466
+Plugs	104
+Pools, Hot Tubs & Supplies	8605
+Portable Sound & Video Products	5940
+Power & Hand Tools	6455
+Power Supplies	247
+Printer Accessories	130
+Printers & Accessories	8821
+Professional Education Supplies	4466
+Professional Medical Supplies	256
+Projectors	8661
+Radio Communication	5180
+Radios & Boomboxes	7183
+Recording & Computer	2567
+Remote & App-Controlled Devices	8917
+Rough Plumbing	9257
+Rugs, Pads & Protectors	4025
+SIM Cards	1743
+Safety & Security	6472
+Scanners & Accessories	9422
+School & Educational Supplies	7653
+Signs & Plaques	5227
+Ski Clothing	1908
+Ski Goggles	256
+Ski Helmets	254
+Skiing Poles	256
+Skin Care	18755
+Slipcovers	190
+Small Kitchen Appliances	7752
+Smart Home Security & Lighting	57
+Smart Speakers	25
+Smartwatches	6569
+Snow Sledding Equipment	7124
+Snowboard Bindings	713
+Snowboard Boots	961
+Snowboards	640
+Soft Toys	9135
+Sports & Outdoors	826073
+Sports Supplements	9166
+Sports Toys & Outdoor	9197
+Storage & Home Organisation	8660
+Storage & Organisation	9152
+Streaming Clients	325
+String Instruments	250
+String Lights	8103
+Surveillance Cameras	9308
+Synthesisers, Samplers & Digital Instruments	7353
+Table Tennis	6486
+Tablet Accessories	529
+Tablets	7791
+Tableware	248
+Telephones, VoIP & Accessories	8729
+Tennis Shoes	4669
+Test & Measurement	255
+Thermometers & Meteorological Instruments	437
+Torches	64
+Toy Advent Calendars	9376
+Trampolines & Accessories	218
+Tripods & Monopods	4729
+USB Gadgets	342
+USB Hubs	247
+Uninterruptible Power Supply Units & Accessories	3649
+Vacuums & Floorcare	6927
+Vases	250
+Water Coolers, Filters & Cartridges	187
+Wearable Technology	7801
+Wind Instruments	250
+Window Treatments	239
+Women	16284
+Women's Sports & Outdoor Shoes	1958
+eBook Readers & Accessories	244
+[cloudera@quickstart ~]$ hdfs dfs -get /user/cloudera/amazon_output/part-00000 amazon_result.txt
+[cloudera@quickstart ~]$ 
