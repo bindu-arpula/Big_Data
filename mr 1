@@ -1,0 +1,324 @@
+[cloudera@quickstart ~]$ nano mapper.py
+[cloudera@quickstart ~]$ nano reducer.py
+[cloudera@quickstart ~]$ chmod +x mapper.py
+[cloudera@quickstart ~]$ chmod +x reducer.py
+[cloudera@quickstart ~]$ head -n 20 AMAZONUKDATA/amz_uk_processed_data.csv | python mapper.py
+categoryName	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+Hi-Fi Speakers	1
+[cloudera@quickstart ~]$ cat AMAZONUKDATA/amz_uk_processed_data.csv | python mapper.py | sort | python reducer.py
+3D Printers	248
+3D Printing & Scanning	4022
+Abrasive & Finishing Products	250
+Action Cameras	1014
+Adapters	251
+Agricultural Equipment & Supplies	8036
+Alexa Built-In Devices	69
+Art & Craft Supplies	200
+Arts & Crafts	5756
+Baby	10833
+Baby & Toddler Toys	9058
+Bakeware	236
+Ballet & Dancing Footwear	2982
+Barebone PCs	9477
+Basketball Footwear	6697
+Bass Guitars & Gear	519
+Bath & Body	14880
+Bathroom Furniture	2627
+Bathroom Lighting	254
+Bathroom Linen	404
+Beauty	5872
+Bedding Accessories	203
+Bedding Collections	6298
+Bedding & Linen	3115
+Bedroom Furniture	4759
+Beer, Wine & Spirits	9414
+Billiard, Snooker & Pool	249
+Binoculars, Telescopes & Optics	9031
+Bird & Wildlife Care	8984
+Birthday Gifts	7413
+Blank Media Cases & Wallets	243
+Boating Footwear	139
+Bowling	242
+Boxes & Organisers	847
+Boxing Shoes	4069
+Boys	11784
+Building & Construction Toys	9125
+Building Supplies	5681
+Cables & Accessories	9029
+Calendars & Personal Organisers	250
+Camcorders	470
+Camera & Photo Accessories	7664
+Cameras	12
+Candles & Holders	249
+Car & Motorbike	9309
+Car & Vehicle Electronics	6841
+categoryName	1
+CD, Disc & Tape Players	8798
+Children's Bedding	258
+Climbing Footwear	2177
+Clocks	236
+Coffee & Espresso Machines	514
+Coffee, Tea & Espresso	6570
+Computer Audio & Video Accessories	9214
+Computer Cases	222
+Computer Memory	248
+Computer Memory Card Accessories	232
+Computer Printers	8085
+Computers, Components & Accessories	236
+Computer Screws	6191
+Computer & Server Racks	242
+Construction Machinery	8906
+Cookware	1440
+CPUs	249
+Cricket Shoes	287
+Curtain & Blind Accessories	706
+Cushions & Accessories	4223
+Customers' Most Loved	6830
+Cutting Tools	255
+Cycling Shoes	9412
+Darts & Dartboards	249
+Data Storage	8086
+Decking & Fencing	249
+Decorative Artificial Flora	245
+Decorative Home Accessories	258
+Desktop PCs	7344
+Digital Cameras	1463
+Digital Frames	772
+Dining Room Furniture	1651
+DJ & VJ Equipment	2503
+Dolls & Accessories	9457
+Doormats	248
+Downhill Ski Boots	1279
+Downhill Skis	252
+Drums & Percussion	250
+eBook Readers & Accessories	244
+Electrical	6244
+Electrical Power Accessories	8862
+Electronic Toys	8764
+Equestrian Sports Boots	399
+External Optical Drives	5826
+External Sound Cards	5649
+External TV Tuners & Video Capture Cards	2726
+Film Cameras	1000
+Fireplaces, Stoves & Accessories	9334
+Flashes	9367
+Fragrances	18563
+Furniture & Lighting	9165
+Games & Game Accessories	9159
+Garden Décor	8970
+Garden Furniture & Accessories	9417
+Gardening	6486
+Garden Storage & Housing	8074
+Garden Tools & Watering Equipment	7469
+General Music-Making Accessories	257
+Gifts for Her	243
+Gifts for Him	160
+Girls	10027
+Golf Shoes	414
+GPS, Finders & Accessories	8798
+Graphics Cards	249
+Grocery	6277
+Guitars & Gear	9382
+Hair Care	13584
+Hallway Furniture	3919
+Handmade	8126
+Handmade Artwork	15297
+Handmade Baby Products	4630
+Handmade Clothing, Shoes & Accessories	16707
+Handmade Gifts	15790
+Handmade Home Décor	9503
+Handmade Home & Kitchen Products	6882
+Handmade Jewellery	12420
+Handmade Kitchen & Dining	14261
+Hard Drive Accessories	232
+Hardware	8568
+Headphones & Earphones	8878
+Headphones, Earphones & Accessories	4506
+Health & Personal Care	8235
+Heating, Cooling & Air Quality	4469
+Hi-Fi & Home Audio Accessories	4972
+Hi-Fi Receivers & Separates	9138
+Hi-Fi Speakers	8679
+Hiking Hand & Foot Warmers	248
+Hobbies	8963
+Hockey Shoes	241
+Home Audio Record Players	6373
+Home Bar Furniture	688
+Home Brewing & Wine Making	245
+Home Cinema, TV & Video	4020
+Home Entertainment	155
+Home Entertainment Furniture	2091
+Home Fragrance	261
+Home Office Furniture	2027
+Household Batteries, Chargers & Accessories	9112
+Hydraulics, Pneumatics & Plumbing	241
+Indoor Lighting	7177
+Industrial Electrical	219
+Inflatable Beds, Pillows & Accessories	243
+Internal Optical Drives	231
+Internal TV Tuner & Video Capture Cards	253
+I/O Port Cards	257
+Ironing & Steamers	2464
+Jigsaws & Puzzles	9376
+Karaoke Equipment	2480
+Keyboards, Mice & Input Devices	9252
+Kids' Art & Craft Supplies	9481
+Kids' Dress Up & Pretend Play	8952
+Kids' Play Figures	9110
+Kids' Play Vehicles	9419
+Kitchen & Bath Fixtures	7902
+Kitchen Linen	242
+Kitchen Storage & Organisation	1233
+Kitchen Tools & Gadgets	511
+KVM Switches	6923
+Lab & Scientific Products	427
+Laptop Accessories	233
+Laptops	7247
+Large Appliances	7463
+Learning & Education Toys	5148
+Lenses	3135
+Light Bulbs	9070
+Lighting	50
+Lights and switches	170
+Living Room Furniture	5858
+Luggage and travel gear	14612
+Luxury Food & Drink	676
+Made in Italy Handmade	2152
+Make-up	18453
+Manicure & Pedicure Products	17212
+Material Handling Products	160
+Mattress Pads & Toppers	768
+Media Streaming Devices	8889
+Men	16384
+Men's Sports & Outdoor Shoes	2866
+Microphones	9392
+Mirrors	168
+Mobile Phone Accessories	254
+Mobile Phones & Communication	4205
+Mobile Phones & Smartphones	7439
+Monitor Accessories	4267
+Monitors	8392
+Motherboards	259
+Motorbike Accessories	431
+Motorbike Batteries	5248
+Motorbike Boots & Luggage	250
+Motorbike Brakes	250
+Motorbike Chassis	107
+Motorbike Clothing	484
+Motorbike Drive & Gears	250
+Motorbike Electrical & Batteries	8631
+Motorbike Engines & Engine Parts	228
+Motorbike Exhaust & Exhaust Systems	258
+Motorbike Handlebars, Controls & Grips	8088
+Motorbike Instruments	4162
+Motorbike Lighting	5201
+Motorbike Seat Covers	249
+Mowers & Outdoor Power Tools	1705
+Network Cards	5677
+Networking Devices	9088
+Office Electronics	3583
+Office Paper Products	8904
+Office Supplies	7382
+Outdoor Cooking	8606
+Outdoor Heaters & Fire Pits	255
+Outdoor Lighting	8895
+Outdoor Rope Lights	3911
+Packaging & Shipping Supplies	254
+Painting Supplies, Tools & Wall Treatments	8522
+PA & Stage	276
+PC Gaming Accessories	8740
+PC & Video Games	5216
+Pens, Pencils & Writing Supplies	9100
+Pet Supplies	9430
+Photo Frames	254
+Photo Printers	73
+Piano & Keyboard	9385
+Plants, Seeds & Bulbs	9466
+Plugs	104
+Pools, Hot Tubs & Supplies	8605
+Portable Sound & Video Products	5940
+Power & Hand Tools	6455
+Power Supplies	247
+Printer Accessories	130
+Printers & Accessories	8821
+Professional Education Supplies	4466
+Professional Medical Supplies	256
+Projectors	8661
+Radio Communication	5180
+Radios & Boomboxes	7183
+Recording & Computer	2567
+Remote & App-Controlled Devices	8917
+Rough Plumbing	9257
+Rugs, Pads & Protectors	4025
+Safety & Security	6472
+Scanners & Accessories	9422
+School & Educational Supplies	7653
+Signs & Plaques	5227
+SIM Cards	1743
+Ski Clothing	1908
+Ski Goggles	256
+Ski Helmets	254
+Skiing Poles	256
+Skin Care	18755
+Slipcovers	190
+Small Kitchen Appliances	7752
+Smart Home Security & Lighting	57
+Smart Speakers	25
+Smartwatches	6569
+Snowboard Bindings	713
+Snowboard Boots	961
+Snowboards	640
+Snow Sledding Equipment	7124
+Soft Toys	9135
+Sports & Outdoors	826076
+Sports Supplements	9166
+Sports Toys & Outdoor	9197
+Storage & Home Organisation	8660
+Storage & Organisation	9152
+Streaming Clients	325
+String Instruments	250
+String Lights	8103
+Surveillance Cameras	9308
+Synthesisers, Samplers & Digital Instruments	7353
+Tablet Accessories	529
+Table Tennis	6486
+Tablets	7791
+Tableware	248
+Telephones, VoIP & Accessories	8729
+Tennis Shoes	4669
+Test & Measurement	255
+Thermometers & Meteorological Instruments	437
+Torches	64
+Toy Advent Calendars	9376
+Trampolines & Accessories	218
+Tripods & Monopods	4729
+Uninterruptible Power Supply Units & Accessories	3649
+USB Gadgets	342
+USB Hubs	247
+Vacuums & Floorcare	6927
+Vases	250
+Water Coolers, Filters & Cartridges	187
+Wearable Technology	7801
+Wind Instruments	250
+Window Treatments	239
+Women	16284
+Women's Sports & Outdoor Shoes	1958
+[cloudera@quickstart ~]$ 
